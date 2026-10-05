@@ -352,6 +352,14 @@
   .yt-video{position:relative;width:100%;aspect-ratio:16/9;border-radius:var(--r);overflow:hidden;border:1px solid var(--border);background:#000;margin-top:14px}
   .yt-video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
 .pod-rail{display:flex;gap:12px;overflow-x:auto;padding-bottom:8px;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch}.pod-item{flex:0 0 auto;width:200px;scroll-snap-align:start}.pod-item iframe{width:100%;height:360px;border:0;border-radius:14px;background:var(--elevated);display:block}
+
+  .tt-facade{width:100%;height:575px;border-radius:14px;background:linear-gradient(160deg,#2b2b2b,#111);display:flex;align-items:center;justify-content:center;cursor:pointer;color:#fff;font-family:'Kanit',sans-serif;font-size:15px}
+  .tt-facade span{background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.35);border-radius:999px;padding:10px 18px}
+  .pod-item .tt-facade{height:360px}
+
+  .pod-item.yt-auto{position:relative;height:360px;border-radius:14px;background-size:cover;background-position:center;background-color:#111;overflow:hidden}
+  .pod-item.yt-auto.wide{width:320px;height:180px;align-self:center}
+  .pod-item.yt-auto iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
 </style>
 </head>
 <body>
@@ -626,13 +634,42 @@ function footerHTML(){
 }
 
 /* ===== HOME ===== */
-const REVIEW_IDS=["7554032049196174610","7570743298466303240","7568488518767349000","7686861014624783624","7651626628975742215","7617472581960011016","7611162364318092562","7578870556800453906"];
+const REVIEW_CLIPS=[
+  {id:"Z5zaHhvfkQA",t:"5 ปีผ่านไป ฟิล์มเปลี่ยน แต่ความเงาไม่เปลี่ยน"},
+  {id:"eUTVkPbIlFY",t:"เจ้าของ S350d ยืนยันเอง หลังเซอร์วิสครบ 1 ปี"},
+  {id:"bt2oYpM13_c",t:"Tesla เลือกทำรอบเดียวจบ"},
+  {id:"L5Iw5ow7hpg",t:"ดูแลกันยาวนานกว่า 12 ปี"},
+  {id:"EgS34oOtjfM",t:"เคลือบมาแล้วเกิน 20 คัน ทำไมมาเคลือบกับร้านเรา"},
+  {id:"JocLdr_ZRCw",t:"หนึ่งในร้อยเสียงจริงจากลูกค้า",wide:true}
+];
 function buildHomeReviews(){
   var el=document.getElementById("homeRevRail");
   if(!el) return;
-  el.innerHTML=REVIEW_IDS.map(function(id){
-    return '<div class="pod-item"><iframe src="https://www.tiktok.com/embed/v2/'+id+'" loading="lazy" allow="autoplay; encrypted-media; fullscreen" allowfullscreen scrolling="no"></iframe></div>';
+  el.innerHTML=REVIEW_CLIPS.map(function(c){
+    return '<div class="pod-item yt-auto'+(c.wide?' wide':'')+'" data-id="'+c.id+'" title="'+c.t+'" style="background-image:url(https://i.ytimg.com/vi/'+c.id+'/hqdefault.jpg)"></div>';
   }).join("");
+  setupYtAuto(el);
+}
+/* เล่นอัตโนมัติ (ปิดเสียง) เฉพาะคลิปที่อยู่กลางจอ — คลิปที่เลื่อนผ่านจะถูกถอดออกเพื่อให้เว็บเบา */
+function setupYtAuto(root){
+  var items=root.querySelectorAll('.yt-auto');
+  if(!('IntersectionObserver' in window)) return;
+  var io=new IntersectionObserver(function(es){
+    es.forEach(function(e){
+      var it=e.target, f=it.querySelector('iframe');
+      if(e.intersectionRatio>=0.55 && !f){
+        var id=it.getAttribute('data-id');
+        f=document.createElement('iframe');
+        f.src='https://www.youtube.com/embed/'+id+'?autoplay=1&mute=1&loop=1&playlist='+id+'&playsinline=1&rel=0&modestbranding=1';
+        f.setAttribute('allow','autoplay; encrypted-media; picture-in-picture; fullscreen');
+        f.setAttribute('allowfullscreen','');
+        f.setAttribute('referrerpolicy','strict-origin-when-cross-origin');
+        f.title=it.title;
+        it.appendChild(f);
+      } else if(e.intersectionRatio<0.2 && f){ f.remove(); }
+    });
+  },{threshold:[0,0.2,0.55]});
+  items.forEach(function(i){io.observe(i);});
 }
 function renderHome(){
   const cards = PROGRAM_ORDER.map(s=>{const p=PROGRAMS[s];
@@ -971,7 +1008,7 @@ const TIER_ARTICLE = {
 ]
 };
 
-function embedTT(url,label){var m=(url||'').match(/video\/(\d+)/);var id=m?m[1]:'';return id?`<div class="tt-embed reveal"><div class="tt-cap">▶ ${label}</div><iframe src="https://www.tiktok.com/embed/v2/${id}" loading="lazy" allow="autoplay; encrypted-media; fullscreen" allowfullscreen scrolling="no"></iframe></div>`:`<a class="rel" href="${url}" target="_blank" rel="noopener"><div class="t">▶ <b>${label}</b></div><span class="arw" style="color:#EE5253">TikTok →</span></a>`;}
+function embedTT(url,label){var m=(url||'').match(/video\/(\d+)/);var id=m?m[1]:'';return id?`<div class="tt-embed reveal"><div class="tt-cap">▶ ${label}</div><div class="tt-facade" data-id="${id}" onclick="loadTT(this)" role="button" tabindex="0"><span>กำลังโหลดคลิป…</span></div></div>`:`<a class="rel" href="${url}" target="_blank" rel="noopener"><div class="t">▶ <b>${label}</b></div><span class="arw" style="color:#EE5253">TikTok →</span></a>`;}
 
 let curTier=null;
 const TIER_VIDEO = {"nano-quartz":"Qt3uKWBv5go","graphene-plus":"evZG82BC2tw","graphene-highgloss":"vOFonHLfnSQ","resin":"Rt7rKED54hE"};
@@ -1056,7 +1093,7 @@ function renderConcern(slug){
     return `<a class="rel" href="#/program/${ps}"><div class="t">${p.icon} <b>${p.name}</b> — <span class="muted">${p.tag}</span></div><span class="arw" style="color:var(--accent)">→</span></a>`;}).join('');
   const relC=c.related.map(rs=>{const r=CONCERNS[rs];
     return `<a class="rel" href="#/concern/${rs}"><div class="t"><b>${r.name}</b> — <span class="muted">${r.short}</span></div><span class="arw">→</span></a>`;}).join('');
-  const vids=(c.videos||[]).map(v=>{var m=(v.url||'').match(/video\/(\d+)/);var id=m?m[1]:'';return id?`<div class="tt-embed reveal"><div class="tt-cap">▶ ${v.label}</div><iframe src="https://www.tiktok.com/embed/v2/${id}" loading="lazy" allow="autoplay; encrypted-media; fullscreen" allowfullscreen scrolling="no"></iframe></div>`:`<a class="rel" href="${v.url}" target="_blank" rel="noopener"><div class="t">▶ <b>${v.label}</b></div><span class="arw" style="color:#EE5253">TikTok →</span></a>`;}).join('');
+  const vids=(c.videos||[]).map(v=>{var m=(v.url||'').match(/video\/(\d+)/);var id=m?m[1]:'';return id?`<div class="tt-embed reveal"><div class="tt-cap">▶ ${v.label}</div><div class="tt-facade" data-id="${id}" onclick="loadTT(this)" role="button" tabindex="0"><span>กำลังโหลดคลิป…</span></div></div>`:`<a class="rel" href="${v.url}" target="_blank" rel="noopener"><div class="t">▶ <b>${v.label}</b></div><span class="arw" style="color:#EE5253">TikTok →</span></a>`;}).join('');
   const vidSec = vids?`<section style="padding-top:6px"><div class="wrap"><span class="eyebrow reveal">ดูของจริง</span><h2 class="sec-title reveal" style="font-size:22px">คลิปตัวอย่างงานจริง</h2><div class="tt-grid">${vids}</div><div class="ph" style="margin-top:10px;text-align:center">* เล่นได้ในหน้านี้เลย · คลิปจาก @albatrosshop</div></div></section>`:'';
   const warnSec = c.warn?`<div class="warn-box reveal">⚠ ${c.warn}</div>`:'';
   const articleHTML=(ARTICLES[slug]||[c.cause]).map(p=>'<p>'+p+'</p>').join('');
@@ -1152,7 +1189,7 @@ function renderTier(id){
     return '<a class="rel" href="#/concern/'+cs+'"><div class="t"><b>'+c.name+'</b> — <span class="muted">'+c.short+'</span></div><span class="arw">→</span></a>';}).join('');
   var rv=(TIER_REVIEWS[id]||[]);
   var reviewsHTML = rv.length ? '<div class="tt-grid">'+rv.map(function(v){var m=(v.url||'').match(/video\/(\d+)/);var vid=m?m[1]:'';
-      return vid?'<div class="tt-embed"><div class="tt-cap">▶ '+v.label+'</div><iframe src="https://www.tiktok.com/embed/v2/'+vid+'" loading="lazy" allow="autoplay; encrypted-media; fullscreen" allowfullscreen scrolling="no"></iframe></div>':'';}).join('')+'</div>'
+      return vid?'<div class="tt-embed"><div class="tt-cap">▶ '+v.label+'</div><div class="tt-facade" data-id="'+vid+'" onclick="loadTT(this)" role="button" tabindex="0"><span>กำลังโหลดคลิป…</span></div></div>':'';}).join('')+'</div>'
     : '<div class="ph" style="text-align:center;padding:18px 0">* รอลิงก์คลิปรีวิวของ '+t.name+' จากทีม</div>';
   var promoHTML = t.promo ? '<div class="promo" style="margin-top:14px"><b>รับสิทธิ์พิเศษ:</b> '+t.promo+'<br><span style="opacity:.9">เลือกรับ <b>ฟิล์มกันรอย Blue Series</b> หรือ <b>พ่นกันสนิม</b> อย่างใดอย่างหนึ่ง และใช้เป็น<b>สิทธิ์แลกซื้อ</b>เพื่ออัปเกรดได้ทั้งเกรดฟิล์ม ขอบเขตการติดตั้ง หรือแบบกันสนิม โดยคิดส่วนลด/ส่วนเพิ่มตามหน้างาน</span></div>' : '';
   var allChips = Object.keys(CONCERNS).map(function(cs){var c=CONCERNS[cs];
@@ -1243,7 +1280,7 @@ function renderPPF(){
     {label:"ฟิล์มแนวปะทะ + เคลือบเซรามิก 4 ปี",url:"https://www.tiktok.com/@albatrosshop/video/7584085764447685906"},
     {label:"ฟิล์มทั้งคัน vs เคลือบไม่ติดฟิล์ม 5 ปี",url:"https://www.tiktok.com/@albatrosshop/video/7417768618949086471"}
   ];
-  const rvHTML='<div class="tt-grid">'+reviews.map(function(v){var m=(v.url||'').match(/video\/(\d+)/);var vid=m?m[1]:'';return vid?'<div class="tt-embed"><div class="tt-cap">▶ '+v.label+'</div><iframe src="https://www.tiktok.com/embed/v2/'+vid+'" loading="lazy" allow="autoplay; encrypted-media; fullscreen" allowfullscreen scrolling="no"></iframe></div>':'';}).join('')+'</div>';
+  const rvHTML='<div class="tt-grid">'+reviews.map(function(v){var m=(v.url||'').match(/video\/(\d+)/);var vid=m?m[1]:'';return vid?'<div class="tt-embed"><div class="tt-cap">▶ '+v.label+'</div><div class="tt-facade" data-id="'+vid+'" onclick="loadTT(this)" role="button" tabindex="0"><span>กำลังโหลดคลิป…</span></div></div>':'';}).join('')+'</div>';
   const packages=["แนวปะทะ Set B — ฝากระโปรง/กันชน/ไฟ/กระจัง","ฝากระโปรงอย่างเดียว","รอบคัน (ทั้งคัน)","จุดพิเศษ เช่น แก้มหน้า/มือจับ"].map(x=>'<li>'+x+' <span class="ph">[รอราคา]</span></li>').join('');
   const allChips=Object.keys(CONCERNS).map(function(cs){var c=CONCERNS[cs];return '<a class="chip" href="#/concern/'+cs+'"><span class="dot">●</span>'+c.name+'</a>';}).join('');
 
@@ -1314,8 +1351,8 @@ function renderPPF(){
     <h2 class="sec-title reveal" style="font-size:22px">ฟิล์มกันรอย ไม่ได้เหมาะกับทุกคน</h2>
     <p class="muted reveal" style="margin-bottom:6px;max-width:64ch">เราแนะนำตามการใช้งานจริง ลองดู 2 คลิปนี้ก่อน แล้วค่อยตัดสินใจ</p>
     <div class="tt-grid reveal">
-      <div class="tt-embed"><div class="tt-cap">▶ ทำไมรถจอดตากแดดไม่เหมาะกับการติดฟิล์ม</div><iframe src="https://www.tiktok.com/embed/v2/7609167359999249682" loading="lazy" allow="autoplay; encrypted-media; fullscreen" allowfullscreen scrolling="no"></iframe></div>
-      <div class="tt-embed"><div class="tt-cap">▶ ฟิล์มใสกันรอยอาจไม่เหมาะกับทุกคน</div><iframe src="https://www.tiktok.com/embed/v2/7631131955475664146" loading="lazy" allow="autoplay; encrypted-media; fullscreen" allowfullscreen scrolling="no"></iframe></div>
+      <div class="tt-embed"><div class="tt-cap">▶ ทำไมรถจอดตากแดดไม่เหมาะกับการติดฟิล์ม</div><div class="tt-facade" data-id="7609167359999249682" onclick="loadTT(this)" role="button" tabindex="0"><span>กำลังโหลดคลิป…</span></div></div>
+      <div class="tt-embed"><div class="tt-cap">▶ ฟิล์มใสกันรอยอาจไม่เหมาะกับทุกคน</div><div class="tt-facade" data-id="7631131955475664146" onclick="loadTT(this)" role="button" tabindex="0"><span>กำลังโหลดคลิป…</span></div></div>
     </div>
     <div class="ph" style="margin-top:10px;text-align:center">* เล่นได้ในหน้านี้เลย · คลิปจาก @albatrosshop</div>
   </div></section>
@@ -1502,6 +1539,26 @@ function router(){
 window.addEventListener('hashchange',()=>{closeSheet();closeCall();closeDropdowns();router();});
 document.addEventListener('click',e=>{if(!e.target.closest('.nav-dd'))closeDropdowns();});
 buildConcernMenus(); buildDockConcerns(); router();
+function loadTT(el){var id=el.getAttribute('data-id');var f=document.createElement('iframe');f.src='https://www.tiktok.com/embed/v2/'+id;f.setAttribute('allow','autoplay; encrypted-media; fullscreen');f.setAttribute('allowfullscreen','');f.setAttribute('scrolling','no');f.style.cssText='width:100%;height:'+el.offsetHeight+'px;border:0;border-radius:14px;display:block';el.replaceWith(f);}
+/* โหลดคลิป TikTok อัตโนมัติเมื่อเลื่อนมาถึง ทีละคลิป ห่างกัน ~1.2 วินาที กัน TikTok ปฏิเสธ (overload-protect) */
+(function(){
+  var queue=[],busy=false,seen=new WeakSet();
+  function pump(){
+    if(busy||!queue.length) return; busy=true;
+    var el=queue.shift();
+    if(el&&el.isConnected) loadTT(el);
+    setTimeout(function(){busy=false;pump();},1200);
+  }
+  var io=('IntersectionObserver' in window)?new IntersectionObserver(function(es){
+    es.forEach(function(e){if(e.isIntersecting){io.unobserve(e.target);queue.push(e.target);pump();}});
+  },{rootMargin:'300px 300px'}):null;
+  function scan(){document.querySelectorAll('.tt-facade').forEach(function(el){
+    if(seen.has(el)) return; seen.add(el);
+    if(io) io.observe(el); else {queue.push(el);pump();}
+  });}
+  new MutationObserver(scan).observe(document.body,{childList:true,subtree:true});
+  scan();
+})();
 </script>
 </body>
 </html>
