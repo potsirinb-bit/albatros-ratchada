@@ -369,11 +369,11 @@
   @media(min-width:700px){.rv{max-width:420px}}
 
   .nav-right{display:flex;align-items:center;gap:10px}
-  .nav-burger{display:inline-flex;flex-direction:column;justify-content:center;gap:5px;width:42px;height:42px;padding:0 10px;background:var(--surface);border:1px solid var(--border);border-radius:10px;cursor:pointer}
-  .nav-burger span{display:block;height:2px;background:var(--text);border-radius:2px;transition:transform .2s,opacity .2s}
-  .nav.open .nav-burger span:nth-child(1){transform:translateY(7px) rotate(45deg)}
-  .nav.open .nav-burger span:nth-child(2){opacity:0}
-  .nav.open .nav-burger span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+  .nav-burger{display:inline-flex;align-items:center;justify-content:center;min-width:56px;height:40px;padding:0 14px;background:var(--surface);border:1px solid var(--border);border-radius:10px;cursor:pointer;font-family:'Kanit',sans-serif;font-size:15px;font-weight:500;color:var(--text)}
+  .nav-burger b{font-weight:500}
+  .nav-burger .nb-close{display:none}
+  .nav.open .nav-burger .nb-open{display:none}
+  .nav.open .nav-burger .nb-close{display:inline}
   @media(min-width:920px){.nav-burger{display:none}}
   @media(max-width:919px){
     .nav.open{backdrop-filter:none;-webkit-backdrop-filter:none;background:#fff}
@@ -428,7 +428,7 @@
       <a href="#/faq">คำถามที่พบบ่อย</a>
     </nav>
     <div class="nav-right"><a href="https://lin.ee/FpvE8Lk" target="_blank" rel="noopener" class="nav-cta">💬 แอดไลน์</a>
-    <button type="button" class="nav-burger" id="navBurger" aria-label="เมนู" aria-expanded="false" onclick="toggleNav()"><span></span><span></span><span></span></button></div>
+    <button type="button" class="nav-burger" id="navBurger" aria-label="เมนู" aria-expanded="false" onclick="toggleNav()"><b class="nb-open">เมนู</b><b class="nb-close">ปิด</b></button></div>
   </div>
 </header>
 
