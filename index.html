@@ -357,9 +357,16 @@
   .tt-facade span{background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.35);border-radius:999px;padding:10px 18px}
   .pod-item .tt-facade{height:360px}
 
-  .pod-item.yt-auto{position:relative;height:360px;border-radius:14px;background-size:cover;background-position:center;background-color:#111;overflow:hidden}
-  .pod-item.yt-auto.wide{width:320px;height:180px;align-self:center}
-  .pod-item.yt-auto iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+
+  .rv{display:block;max-width:360px;margin:0 auto}
+  .rv-player{position:relative;width:100%;aspect-ratio:9/16;max-height:72vh;background:#111 center/cover;border-radius:16px;overflow:hidden;margin:0 auto}
+  .rv-player.wide{aspect-ratio:16/9;max-height:none}
+  .rv-player iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+  .rv-title{font-family:'Kanit',sans-serif;font-weight:500;font-size:15px;text-align:center;margin:10px 0 8px}
+  .rv-strip{display:flex;gap:8px;overflow-x:auto;padding:2px 2px 8px;scroll-snap-type:x proximity;-webkit-overflow-scrolling:touch}
+  .rv-th{flex:0 0 auto;width:56px;height:84px;border-radius:10px;border:2px solid var(--border);background:#111 center/cover;cursor:pointer;opacity:.75;scroll-snap-align:start;padding:0}
+  .rv-th.on{border-color:var(--accent);opacity:1;box-shadow:0 0 0 2px rgba(184,137,30,.25)}
+  @media(min-width:700px){.rv{max-width:420px}}
 </style>
 </head>
 <body>
@@ -642,34 +649,49 @@ const REVIEW_CLIPS=[
   {id:"EgS34oOtjfM",t:"เคลือบมาแล้วเกิน 20 คัน ทำไมมาเคลือบกับร้านเรา"},
   {id:"JocLdr_ZRCw",t:"หนึ่งในร้อยเสียงจริงจากลูกค้า",wide:true}
 ];
+var rvCur=0;
+function rvSrc(id,mute){return 'https://www.youtube.com/embed/'+id+'?autoplay=1'+(mute?'&mute=1':'')+'&loop=1&playlist='+id+'&playsinline=1&rel=0&modestbranding=1';}
+function rvMount(mute){
+  var box=document.getElementById('rvPlayer'); if(!box) return;
+  var c=REVIEW_CLIPS[rvCur];
+  box.classList.toggle('wide',!!c.wide);
+  box.style.backgroundImage='url(https://i.ytimg.com/vi/'+c.id+'/hqdefault.jpg)';
+  var f=box.querySelector('iframe'); if(f) f.remove();
+  f=document.createElement('iframe');
+  f.src=rvSrc(c.id,mute);
+  f.setAttribute('allow','autoplay; encrypted-media; picture-in-picture; fullscreen');
+  f.setAttribute('allowfullscreen','');
+  f.setAttribute('referrerpolicy','strict-origin-when-cross-origin');
+  f.title=c.t; box.appendChild(f);
+}
+function rvPick(i){
+  rvCur=i;
+  var t=document.getElementById('rvTitle'); if(t) t.textContent=REVIEW_CLIPS[i].t;
+  document.querySelectorAll('.rv-th').forEach(function(b,k){b.classList.toggle('on',k===i);});
+  rvMount(false); /* แตะเอง จึงเปิดเสียงได้ */
+}
 function buildHomeReviews(){
   var el=document.getElementById("homeRevRail");
   if(!el) return;
-  el.innerHTML=REVIEW_CLIPS.map(function(c){
-    return '<div class="pod-item yt-auto'+(c.wide?' wide':'')+'" data-id="'+c.id+'" title="'+c.t+'" style="background-image:url(https://i.ytimg.com/vi/'+c.id+'/hqdefault.jpg)"></div>';
-  }).join("");
-  setupYtAuto(el);
-}
-/* เล่นอัตโนมัติ (ปิดเสียง) เฉพาะคลิปที่อยู่กลางจอ — คลิปที่เลื่อนผ่านจะถูกถอดออกเพื่อให้เว็บเบา */
-function setupYtAuto(root){
-  var items=root.querySelectorAll('.yt-auto');
-  if(!('IntersectionObserver' in window)) return;
-  var io=new IntersectionObserver(function(es){
+  el.className='rv';
+  el.innerHTML='<div class="rv-player" id="rvPlayer"></div><div class="rv-title" id="rvTitle"></div>'
+    +'<div class="rv-strip">'+REVIEW_CLIPS.map(function(c,i){
+      return '<button type="button" class="rv-th" onclick="rvPick('+i+')" aria-label="'+c.t+'" style="background-image:url(https://i.ytimg.com/vi/'+c.id+'/hqdefault.jpg)"></button>';
+    }).join('')+'</div>';
+  rvCur=0;
+  document.getElementById('rvTitle').textContent=REVIEW_CLIPS[0].t;
+  document.querySelectorAll('.rv-th')[0].classList.add('on');
+  var box=document.getElementById('rvPlayer');
+  box.style.backgroundImage='url(https://i.ytimg.com/vi/'+REVIEW_CLIPS[0].id+'/hqdefault.jpg)';
+  if(!('IntersectionObserver' in window)){rvMount(true);return;}
+  /* เล่นเอง (ปิดเสียง) เมื่อเลื่อนมาถึง · ถอดออกเมื่อเลื่อนผ่านเพื่อให้เว็บเบา */
+  new IntersectionObserver(function(es){
     es.forEach(function(e){
-      var it=e.target, f=it.querySelector('iframe');
-      if(e.intersectionRatio>=0.55 && !f){
-        var id=it.getAttribute('data-id');
-        f=document.createElement('iframe');
-        f.src='https://www.youtube.com/embed/'+id+'?autoplay=1&mute=1&loop=1&playlist='+id+'&playsinline=1&rel=0&modestbranding=1';
-        f.setAttribute('allow','autoplay; encrypted-media; picture-in-picture; fullscreen');
-        f.setAttribute('allowfullscreen','');
-        f.setAttribute('referrerpolicy','strict-origin-when-cross-origin');
-        f.title=it.title;
-        it.appendChild(f);
-      } else if(e.intersectionRatio<0.2 && f){ f.remove(); }
+      var f=box.querySelector('iframe');
+      if(e.intersectionRatio>=0.5&&!f) rvMount(true);
+      else if(e.intersectionRatio<0.15&&f) f.remove();
     });
-  },{threshold:[0,0.2,0.55]});
-  items.forEach(function(i){io.observe(i);});
+  },{threshold:[0,0.15,0.5]}).observe(box);
 }
 function renderHome(){
   const cards = PROGRAM_ORDER.map(s=>{const p=PROGRAMS[s];
@@ -725,7 +747,7 @@ function renderHome(){
       <div class="tcell"><div class="n">ดูแลหลังการขาย</div><div class="d">Refresh/Recoat ทุก 6 เดือน</div></div>
       <div class="tcell"><div class="n">รับประกันชัดเจน</div><div class="d">สูงสุด 3–7 ปีตามโปรแกรม</div></div>
     </div>
-    <div class="rev-wrap reveal" style="margin-top:16px"><div class="pod-rail" id="homeRevRail"></div><div class="ph" style="margin-top:6px">← เลื่อนดูรีวิวลูกค้าเพิ่มเติม</div></div>
+    <div class="rev-wrap reveal" style="margin-top:16px"><div class="pod-rail" id="homeRevRail"></div><div class="ph" style="margin-top:6px">แตะภาพด้านล่างเพื่อเปลี่ยนคลิป · แตะที่คลิปเพื่อเปิดเสียง</div></div>
   </div></section>
 
   <section style="padding-top:0"><div class="wrap">${ctaBlock()}</div></section>
