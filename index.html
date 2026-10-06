@@ -388,6 +388,28 @@
   }
 
   @media(max-width:480px){.nav-cta{white-space:nowrap;padding:8px 10px;font-size:13px}.logo .tl{display:none}.logo .nm{font-size:16px;white-space:nowrap}.logo .mk{height:30px}.nav-right{gap:8px}}
+
+  .dr-steps{display:grid;gap:10px;margin:18px 0}
+  .dr-step{display:flex;gap:14px;align-items:flex-start;background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:14px 16px}
+  .dr-step>b{flex:0 0 auto;width:32px;height:32px;border-radius:50%;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;font-family:Kanit}
+  .dr-step h3{font-family:Kanit;font-size:16.5px;margin:0}
+  .dr-step p{margin:3px 0 0;color:var(--muted);font-size:14.5px}
+  .dr-close{max-width:62ch;background:linear-gradient(180deg,rgba(184,137,30,.10),transparent);border:1px solid var(--border);border-radius:var(--r);padding:16px}
+  .dr-close b{font-family:Kanit;font-size:17px}
+  .dr-close p{margin:8px 0 0}
+  .dr-tag{font-family:Kanit;font-weight:600;color:var(--accent-strong)}
+  .ins-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+  @media(min-width:760px){.ins-grid{grid-template-columns:repeat(4,1fr)}}
+  .ins-item{min-width:0}
+  .ins-item.open{grid-column:1/-1;display:flex;flex-direction:column;align-items:center}
+  .ins-btn{display:block;width:100%;text-align:left;background:none;border:0;padding:0;cursor:pointer;font-family:inherit;color:var(--text)}
+  .ins-img{position:relative;display:block;aspect-ratio:9/16;border-radius:14px;background:#111 center/cover;overflow:hidden}
+  .ins-play{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:48px;height:48px;border-radius:50%;background:rgba(0,0,0,.6);color:#fff;display:flex;align-items:center;justify-content:center;font-size:18px;padding-left:3px}
+  .ins-t{display:block;font-size:13px;line-height:1.4;margin-top:6px;color:var(--muted)}
+  .ins-item.open .ins-btn{display:none}
+  .ins-player{width:min(100%,340px);aspect-ratio:9/16;max-height:78vh;background:#000;border-radius:16px;overflow:hidden}
+  .ins-player iframe{width:100%;height:100%;border:0;display:block}
+  .ins-x{margin-top:10px;background:var(--surface);border:1px solid var(--border);border-radius:999px;padding:9px 18px;font-family:Kanit;font-size:15px;cursor:pointer;min-height:42px}
 </style>
 </head>
 <body>
@@ -693,6 +715,7 @@ function rvPick(i){
   rvMount(false); /* แตะเอง จึงเปิดเสียงได้ */
 }
 function buildHomeReviews(){
+  buildInsight();
   var el=document.getElementById("homeRevRail");
   if(!el) return;
   el.className='rv';
@@ -739,6 +762,32 @@ function renderHome(){
       <a class="btn btn-primary" href="#programs">เลือกโปรแกรม</a>
       <a class="btn btn-ghost" href="https://lin.ee/FpvE8Lk" target="_blank" rel="noopener">💬 ปรึกษาแอดมิน</a>
     </div></div></section>
+
+  <section id="doctor" style="padding-top:34px"><div class="wrap">
+    <span class="eyebrow reveal">มาตรฐานการให้บริการ</span>
+    <h2 class="sec-title reveal">มาตรฐานการให้บริการแบบ “หมอสี” ของ ARMOR TH</h2>
+    <div class="reveal" style="max-width:62ch">
+      <p style="font-size:17px">เราไม่ได้เริ่มจากการถามว่า<br><b style="font-family:Kanit">“ลูกค้าอยากทำโปรแกรมไหน”</b></p>
+      <p style="font-size:17px;margin-top:10px">แต่เริ่มจากการตรวจว่า<br><b style="font-family:Kanit">“รถคันนี้กำลังเจอปัญหาอะไร และควรได้รับการดูแลแบบไหน”</b></p>
+      <p class="muted" style="margin-top:12px">เหมือนหมอที่ไม่จ่ายยาก่อนวินิจฉัย</p>
+      <p style="margin-top:12px">หมอสีของ ARMOR TH จะตรวจสภาพสี ซักถามการใช้งาน และประเมินความต้องการของเจ้าของรถ ก่อนออกแบบแนวทางการดูแลที่เหมาะสมกับรถแต่ละคัน</p>
+    </div>
+    <div class="dr-steps">
+      <div class="dr-step reveal"><b>1</b><div><h3>ตรวจอย่างละเอียด</h3><p>เห็นทั้งปัญหาที่ลูกค้ากังวลและรายละเอียดที่อาจมองข้าม</p></div></div>
+      <div class="dr-step reveal"><b>2</b><div><h3>วินิจฉัยอย่างตรงไปตรงมา</h3><p>บอกได้ว่าปัญหาไหนแก้ได้ ปัญหาไหนทำได้เพียงลดหรือป้องกัน</p></div></div>
+      <div class="dr-step reveal"><b>3</b><div><h3>วางแผนเฉพาะคัน</h3><p>เลือกวิธีดูแลจากสภาพรถและการใช้งานจริง ไม่ใช่เลือกจากราคาที่สูงที่สุด</p></div></div>
+      <div class="dr-step reveal"><b>4</b><div><h3>ลงมือด้วยมาตรฐานเดียวกัน</h3><p>ทุกขั้นตอนต้องมีเหตุผล ควบคุมคุณภาพ และตรวจสอบก่อนส่งมอบ</p></div></div>
+      <div class="dr-step reveal"><b>5</b><div><h3>ติดตามผลในระยะยาว</h3><p>งานของหมอสีไม่ได้จบเมื่อรถออกจากศูนย์ แต่รวมถึงการดูแลหลังการขาย การตรวจเช็ก และการรักษาความสวยของรถให้อยู่ได้นานที่สุด</p></div></div>
+    </div>
+    <div class="dr-close reveal">
+      <b>หมอสีจึงไม่ใช่แค่คนที่ทำให้รถเงาขึ้นในวันแรก</b>
+      <p>แต่คือคนที่เข้าใจสภาพสี วางแผนการปกป้อง และดูแลรถให้สวย ดูแลง่าย ในระยะยาว</p>
+      <p class="dr-tag">ARMOR TH — มาตรฐานหมอสี มาตรฐานเดียวกัน ใกล้ที่ไหน ไปที่นั่น</p>
+    </div>
+    <h3 class="reveal" style="font-family:Kanit;font-size:19px;margin:26px 0 4px">ดูเบื้องหลังมาตรฐานหมอสี</h3>
+    <p class="muted reveal" style="font-size:14px;margin-bottom:12px">แตะที่คลิปเพื่อดู คลิปจะขยายใหญ่ในหน้านี้ เล่นพร้อมเสียง</p>
+    <div class="ins-grid" id="insGrid"></div>
+  </div></section>
 
   <section id="programs"><div class="wrap">
     <span class="eyebrow reveal">โปรแกรมของเรา</span>
@@ -1571,12 +1620,56 @@ function afterRender(){
   document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
   window.scrollTo(0,0);
 }
+
+/* ===== คลิป Armor Insight (แตะแล้วขยายในหน้า เล่นพร้อมเสียง) ===== */
+const INSIGHT_CLIPS=[
+  {id:"UTMfGhCyGKI",t:"จุดเริ่มต้นของ “หมอสี”"},
+  {id:"Rxh_rztPE04",t:"Beyond The Gloss Ep.1 เบื้องหลังมาตรฐานเดียวกัน"},
+  {id:"nGh3VcbCHXo",t:"“ใกล้ที่ไหน ไปที่นั่น” ไม่ได้มีไว้แค่บอกว่า ARMOR มีหลายสาขา"},
+  {id:"5k_zwEwatAs",t:"เบื้องหลังการออกแบบคาแรคเตอร์ฟิล์ม"},
+  {id:"epkY_EJdiVM",t:"เบื้องหลัง “รับประกันสูงสุด 7 ปี” ไม่ได้แปลว่าน้ำยาวิเศษ"},
+  {id:"KrOxjxzt8HA",t:"เบื้องหลังระบบ Re-Coat เคลือบซ้ำทำใหม่"},
+  {id:"KMlu3PzWaUk",t:"ทำไมหยิบข้อด้อยแต่ละโปรแกรมมาพูด"},
+  {id:"AxTUpAe7Y7c",t:"เบื้องหลังโปรแกรมผสมผสาน"}
+];
+function buildInsight(){
+  var g=document.getElementById('insGrid'); if(!g) return;
+  g.innerHTML=INSIGHT_CLIPS.map(function(c,i){
+    return '<div class="ins-item" id="ins'+i+'"><button type="button" class="ins-btn" onclick="insPlay('+i+')" aria-label="เล่นคลิป: '+c.t+'"><span class="ins-img" style="background-image:url(https://i.ytimg.com/vi/'+c.id+'/hqdefault.jpg)"><span class="ins-play">▶</span></span><span class="ins-t">'+(i+1)+'. '+c.t+'</span></button></div>';
+  }).join('');
+}
+function insPlay(i){
+  var all=document.querySelectorAll('.ins-item');
+  all.forEach(function(el,k){
+    if(k!==i&&el.classList.contains('open')){el.classList.remove('open');var f=el.querySelector('iframe');if(f)f.remove();}
+  });
+  var el=document.getElementById('ins'+i); if(!el||el.classList.contains('open')) return;
+  el.classList.add('open');
+  var id=INSIGHT_CLIPS[i].id;
+  var box=document.createElement('div');box.className='ins-player';
+  var f=document.createElement('iframe');
+  f.src='https://www.youtube.com/embed/'+id+'?autoplay=1&playsinline=1&rel=0&modestbranding=1';
+  f.setAttribute('allow','autoplay; encrypted-media; picture-in-picture; fullscreen');
+  f.setAttribute('allowfullscreen','');f.setAttribute('referrerpolicy','strict-origin-when-cross-origin');f.title=INSIGHT_CLIPS[i].t;
+  box.appendChild(f);
+  var close=document.createElement('button');close.type='button';close.className='ins-x';close.textContent='✕ ปิดคลิป';close.onclick=function(){insClose(i);};
+  el.appendChild(box);el.appendChild(close);
+  setTimeout(function(){el.scrollIntoView({behavior:'smooth',block:'center'});},80);
+}
+function insClose(i){
+  var el=document.getElementById('ins'+i);if(!el)return;
+  el.classList.remove('open');
+  var b=el.querySelector('.ins-player');if(b)b.remove();
+  var x=el.querySelector('.ins-x');if(x)x.remove();
+}
+
 function router(){
   const h=location.hash||'#/home'; const parts=h.replace('#/','').split('/');
   if(parts[0]==='coating'&&parts[1]) return renderTier(parts[1]);
   if(parts[0]==='program'&&parts[1]) return renderProgram(parts[1]);
   if(parts[0]==='coating'&&parts[1]) return renderTier(parts[1]);
   if(parts[0]==='concern'&&parts[1]) return renderConcern(parts[1]);
+  if(parts[0]==='standards'){renderHome();setTimeout(function(){var el=document.getElementById('doctor');if(el)el.scrollIntoView({behavior:'smooth',block:'start'});},120);return;}
   if(parts[0]==='compare') return renderCompare();
   renderHome();
 }
