@@ -423,6 +423,10 @@
   .faq-item.open .faq-ar{transform:rotate(180deg)}
   .faq-player{width:min(calc(100% - 28px),340px);aspect-ratio:9/16;max-height:78vh;margin:2px auto 16px;background:#000;border-radius:14px;overflow:hidden}
   .faq-player iframe{width:100%;height:100%;border:0;display:block}
+
+  #dockRbody a{align-items:flex-start;line-height:1.35}
+  #dockRbody a .d{min-width:20px;font-weight:600}
+  .dock-right .dock-panel{width:min(86vw,300px)}
 </style>
 </head>
 <body>
@@ -470,7 +474,7 @@
 <main id="app"></main>
 
 <div class="dock dock-left" id="dockL"><button class="dock-tab" onclick="toggleDock('L')"><span class="dt-ic">⚠</span><span class="dt-label">ปัญหาสีรถ</span></button><div class="dock-panel"><div class="dock-head"><span>⚠ ปัญหาสีรถ</span><button class="dock-x" onclick="toggleDock('L')">×</button></div><div class="dock-body" id="dockLbody"></div></div></div>
-<div class="dock dock-right" id="dockR"><button class="dock-tab" onclick="toggleDock('R')"><span class="dt-ic">❓</span><span class="dt-label">คำถามที่พบบ่อย</span></button><div class="dock-panel"><div class="dock-head"><span>❓ คำถามที่พบบ่อย</span><button class="dock-x" onclick="toggleDock('R')" aria-label="หุบ">×</button></div><div class="dock-body"><a href="#/faq"><span class="d">❓</span>คำถามที่พบบ่อย ทั้งหมด</a><a href="#/faq/0"><span class="d">🛡️</span>เคลือบ VS ฟิล์ม เลือกอะไร</a><a href="#/faq/1"><span class="d">🖤</span>รถสีดำควรเลือกอะไร</a><a href="#/faq"><span class="d">🪨</span>เคลือบกันสะเก็ดหินไหม</a></div></div></div>
+<div class="dock dock-right" id="dockR"><button class="dock-tab" onclick="toggleDock('R')"><span class="dt-ic">❓</span><span class="dt-label">คำถามที่พบบ่อย</span></button><div class="dock-panel"><div class="dock-head"><span>❓ คำถามที่พบบ่อย</span><button class="dock-x" onclick="toggleDock('R')" aria-label="หุบ">×</button></div><div class="dock-body" id="dockRbody"></div></div></div>
 <div class="sheet-scrim" id="scrim" onclick="closeSheet()"></div>
 <div class="sheet" id="sheet" role="dialog" aria-label="ปัญหาสีรถ">
   <div class="grab"></div>
@@ -1741,7 +1745,7 @@ function router(){
 }
 window.addEventListener('hashchange',()=>{closeSheet();closeCall();closeDropdowns();router();});
 document.addEventListener('click',e=>{if(!e.target.closest('.nav-dd'))closeDropdowns();});
-buildConcernMenus(); buildDockConcerns(); router();
+buildConcernMenus(); buildDockConcerns(); buildDockFaq(); router();
 function loadTT(el){var id=el.getAttribute('data-id');var f=document.createElement('iframe');f.src='https://www.tiktok.com/embed/v2/'+id;f.setAttribute('allow','autoplay; encrypted-media; fullscreen');f.setAttribute('allowfullscreen','');f.setAttribute('scrolling','no');f.style.cssText='width:100%;height:'+el.offsetHeight+'px;border:0;border-radius:14px;display:block';el.replaceWith(f);}
 /* โหลดคลิป TikTok อัตโนมัติเมื่อเลื่อนมาถึง ทีละคลิป ห่างกัน ~1.2 วินาที กัน TikTok ปฏิเสธ (overload-protect) */
 (function(){
@@ -1774,6 +1778,16 @@ document.addEventListener('click',function(e){
 });
 window.addEventListener('resize',function(){if(window.innerWidth>=920)toggleNav(false);});
 if(window.innerWidth<=1180){["dockL","dockR"].forEach(function(i){var d=document.getElementById(i);if(d)d.classList.add("collapsed");});}
+function buildDockFaq(){
+  var el=document.getElementById('dockRbody'); if(!el||typeof FAQ_CLIPS==='undefined') return;
+  el.innerHTML='<a href="#/faq"><span class="d">❓</span>คำถามที่พบบ่อย ทั้งหมด</a>'+FAQ_CLIPS.map(function(c,i){
+    return '<a href="#/faq/'+i+'"><span class="d">'+(i+1)+'.</span>'+c.q+'</a>';
+  }).join('');
+}
+document.addEventListener('click',function(e){
+  var a=e.target.closest&&e.target.closest('.dock-body a');
+  if(a&&window.innerWidth<=1180){var d=a.closest('.dock');if(d)d.classList.add('collapsed');}
+});
 </script>
 </body>
 </html>
