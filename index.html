@@ -436,6 +436,19 @@
 
   .art-photo{margin:18px 0;border-radius:var(--r);overflow:hidden;border:1px solid var(--border);background:#111;box-shadow:0 6px 18px rgba(20,22,26,.12)}
   .art-photo img{display:block;width:100%;height:auto;aspect-ratio:16/9;object-fit:cover}
+
+  .cc-list{display:grid;gap:18px;justify-items:center}
+  .cc-item{width:100%;max-width:340px;display:flex;flex-direction:column;align-items:center}
+  .cc-btn{display:block;width:100%;background:none;border:0;padding:0;cursor:pointer;text-align:left;font-family:inherit;color:var(--text)}
+  .cc-img{position:relative;display:block;aspect-ratio:9/16;max-height:70vh;width:100%;border-radius:16px;background:#111 center/cover;overflow:hidden}
+  .cc-img.wide{aspect-ratio:4/3}
+  .cc-play{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:58px;height:58px;border-radius:50%;background:rgba(0,0,0,.6);color:#fff;display:flex;align-items:center;justify-content:center;font-size:22px;padding-left:4px}
+  .cc-t{display:block;font-family:'Kanit',sans-serif;font-weight:500;font-size:15.5px;line-height:1.4;margin-top:8px}
+  .cc-item.open .cc-btn{display:none}
+  .cc-player{width:100%;aspect-ratio:9/16;max-height:78vh;background:#000;border-radius:16px;overflow:hidden}
+  .cc-player.wide{aspect-ratio:4/3}
+  .cc-player iframe{width:100%;height:100%;border:0;display:block}
+  .cc-x{margin-top:10px;background:var(--surface);border:1px solid var(--border);border-radius:999px;padding:9px 18px;font-family:Kanit;font-size:15px;cursor:pointer;min-height:42px}
 </style>
 </head>
 <body>
@@ -1214,6 +1227,8 @@ function renderConcern(slug){
     return `<a class="rel" href="#/concern/${rs}"><div class="t"><b>${r.name}</b> — <span class="muted">${r.short}</span></div><span class="arw">→</span></a>`;}).join('');
   const vids=(c.videos||[]).map(v=>{var m=(v.url||'').match(/video\/(\d+)/);var id=m?m[1]:'';return id?`<div class="tt-embed reveal"><div class="tt-cap">▶ ${v.label}</div><div class="tt-facade" data-id="${id}" onclick="loadTT(this)" role="button" tabindex="0"><span>กำลังโหลดคลิป…</span></div></div>`:`<a class="rel" href="${v.url}" target="_blank" rel="noopener"><div class="t">▶ <b>${v.label}</b></div><span class="arw" style="color:#EE5253">TikTok →</span></a>`;}).join('');
   const vidSec = vids?`<section style="padding-top:6px"><div class="wrap"><span class="eyebrow reveal">ดูของจริง</span><h2 class="sec-title reveal" style="font-size:22px">คลิปตัวอย่างงานจริง</h2><div class="tt-grid">${vids}</div><div class="ph" style="margin-top:10px;text-align:center">* เล่นได้ในหน้านี้เลย · คลิปจาก @albatrosshop</div></div></section>`:'';
+  const ccList=CONCERN_CLIPS[slug];
+  const clipsSec = ccList?`<section style="padding-top:6px"><div class="wrap"><span class="eyebrow reveal">ดูคลิปอธิบาย</span><h2 class="sec-title reveal" style="font-size:22px">คลิปจากหมอสี</h2><p class="muted reveal" style="font-size:14px;margin-bottom:12px">แตะที่คลิปเพื่อดู เล่นพร้อมเสียงในหน้านี้</p><div class="cc-list">${ccList.map(function(v,i){var k=slug+'-'+i;return '<div class="cc-item reveal" id="cc-'+k+'" data-id="'+v.id+'" data-wide="'+(v.wide?1:0)+'"><button type="button" class="cc-btn" onclick="ccPlay(\''+k+'\')" aria-label="เล่นคลิป: '+v.t+'"><span class="cc-img'+(v.wide?' wide':'')+'" style="background-image:url(https://i.ytimg.com/vi/'+v.id+'/hqdefault.jpg)"><span class="cc-play">▶</span></span><span class="cc-t">'+v.t+'</span></button></div>';}).join('')}</div></div></section>`:'';
   const warnSec = c.warn?`<div class="warn-box reveal">⚠ ${c.warn}</div>`:'';
   const articleHTML=(ARTICLES[slug]||[c.cause]).map(p=>'<p>'+p+'</p>').join('');
   app.innerHTML=`
@@ -1243,7 +1258,7 @@ function renderConcern(slug){
     <div class="rel-list reveal">${progs}</div>
   </div></section>
 
-  ${vidSec}
+  ${clipsSec||vidSec}
 
   <section style="padding-top:6px"><div class="wrap">
     <span class="eyebrow reveal">อ่านต่อ</span>
@@ -1742,6 +1757,45 @@ function faqToggle(i){
 }
 
 const CONCERN_IMG={"bird-droppings":1,"swirl-marks":1,"water-stains":1,"stone-chips":1,"paint-overspray":1,"repaint-defects":1,"branch-scratches":1};
+/* ===== คลิปตอบในหน้าปัญหาสีรถ (YouTube Shorts) ===== */
+const CONCERN_CLIPS={
+  "bird-droppings":[
+    {id:"OFYOoTN6OQA",t:"รับรถมาใหม่ ก็ใช่ว่าจะไร้ปัญหา.. มูลนก !"},
+    {id:"-O1o6rp_5yY",t:"เจอคราบมูลนก อย่าทำแบบนี้"}],
+  "swirl-marks":[
+    {id:"o9Rjxw0-dwY",t:"จอดรถไว้ที่บ้านแต่โดน “น้องแมว” ข่วนรถจนเป็นรอยเต็ม ทำยังไงดี"}],
+  "water-stains":[
+    {id:"ufY3VYMaQ18",t:"จ่ายเงินตั้งแพง เคลมทั้งที ต้องเสียเงินเพิ่ม"}],
+  "stone-chips":[
+    {id:"gDYhfYQwlYY",t:"จอดตากแดด 5 ปี .. เคลือบ VS ฟิล์ม"},
+    {id:"Ee6N9b1PJvs",t:"เคลือบเซรามิกกับฟิล์มใสกันรอย ว่ามีจุดอ่อน จุดแข็ง อย่างไร ?",wide:true}],
+  "paint-overspray":[
+    {id:"Z5zaHhvfkQA",t:"5 ปีผ่านไป ฟิล์มเปลี่ยน แต่ความเงาไม่เปลี่ยน"}],
+  "branch-scratches":[
+    {id:"_VuG5XJncHo",t:"กลัวรอยกิ่งไม้ ติดฟิล์มดีกว่าเคลือบจริงหรือไม่ ?"}]
+};
+function ccPlay(key){
+  var el=document.getElementById('cc-'+key); if(!el||el.classList.contains('open')) return;
+  document.querySelectorAll('.cc-item.open').forEach(function(x){ccClose(x.id.slice(3));});
+  var id=el.getAttribute('data-id'), wide=el.getAttribute('data-wide')==='1';
+  el.classList.add('open');
+  var box=document.createElement('div');box.className='cc-player'+(wide?' wide':'');
+  var f=document.createElement('iframe');
+  f.src='https://www.youtube.com/embed/'+id+'?autoplay=1&playsinline=1&rel=0&modestbranding=1';
+  f.setAttribute('allow','autoplay; encrypted-media; picture-in-picture; fullscreen');
+  f.setAttribute('allowfullscreen','');f.setAttribute('referrerpolicy','strict-origin-when-cross-origin');
+  box.appendChild(f);
+  var x=document.createElement('button');x.type='button';x.className='cc-x';x.textContent='✕ ปิดคลิป';x.onclick=function(){ccClose(key);};
+  el.appendChild(box);el.appendChild(x);
+  setTimeout(function(){el.scrollIntoView({behavior:'smooth',block:'center'});},80);
+}
+function ccClose(key){
+  var el=document.getElementById('cc-'+key); if(!el) return;
+  el.classList.remove('open');
+  var b=el.querySelector('.cc-player');if(b)b.remove();
+  var x=el.querySelector('.cc-x');if(x)x.remove();
+}
+
 function router(){
   const h=location.hash||'#/home'; const parts=h.replace('#/','').split('/');
   if(parts[0]==='coating'&&parts[1]) return renderTier(parts[1]);
