@@ -433,6 +433,9 @@
   #dockRbody a{padding:7px 9px;font-size:13px;gap:7px;line-height:1.3}
   #dockR .dock-head{padding:10px 14px}
   @media(max-height:760px){#dockR .dock-body{max-height:calc(100vh - 220px);overflow-y:auto}}
+
+  .art-photo{margin:18px 0;border-radius:var(--r);overflow:hidden;border:1px solid var(--border);background:#111;box-shadow:0 6px 18px rgba(20,22,26,.12)}
+  .art-photo img{display:block;width:100%;height:auto;aspect-ratio:16/9;object-fit:cover}
 </style>
 </head>
 <body>
@@ -1218,7 +1221,7 @@ function renderConcern(slug){
     <a class="back" href="#/home">← ปัญหาสีรถทั้งหมด</a>
     <span class="pill" style="background:var(--signal-soft);color:var(--signal)">ปัญหาสีรถ</span>
     <h1 style="margin-top:10px">${c.title}</h1>
-    <div class="art-img">[รอภาพประกอบ/Before-After: ${c.name}]</div>
+    ${CONCERN_IMG[slug]?`<figure class="art-photo"><img src="images/concern-${slug}.webp" alt="${c.name} บนสีรถสีดำ" loading="lazy" width="1672" height="941"></figure>`:`<div class="art-img">[รอภาพประกอบ/Before-After: ${c.name}]</div>`}
     <div class="art-body"><h2><span class="k">ปัญหานี้คืออะไร</span>เกิดขึ้นได้อย่างไร</h2>${articleHTML}</div>
   </div></section>
 
@@ -1738,6 +1741,7 @@ function faqToggle(i){
   setTimeout(function(){el.scrollIntoView({behavior:'smooth',block:'start'});},80);
 }
 
+const CONCERN_IMG={"bird-droppings":1,"swirl-marks":1,"water-stains":1,"stone-chips":1,"paint-overspray":1,"repaint-defects":1,"branch-scratches":1};
 function router(){
   const h=location.hash||'#/home'; const parts=h.replace('#/','').split('/');
   if(parts[0]==='coating'&&parts[1]) return renderTier(parts[1]);
