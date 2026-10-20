@@ -166,7 +166,7 @@
 
   /* price matrix */
   .matrix{margin-top:14px;border:1px solid var(--border);border-radius:var(--r);overflow:hidden;background:var(--surface)}
-  .mrow{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr .9fr;border-bottom:1px solid var(--border)}
+  .mrow{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;border-bottom:1px solid var(--border)}
   .mrow:last-child{border-bottom:none}
   .mrow>div{padding:11px 8px;font-size:12.5px;text-align:center;font-family:'Kanit'}
   .mrow>div:first-child{text-align:left;font-weight:600}
@@ -449,6 +449,74 @@
   .cc-player.wide{aspect-ratio:4/3}
   .cc-player iframe{width:100%;height:100%;border:0;display:block}
   .cc-x{margin-top:10px;background:var(--surface);border:1px solid var(--border);border-radius:999px;padding:9px 18px;font-family:Kanit;font-size:15px;cursor:pointer;min-height:42px}
+
+  .care-box{margin-top:14px;background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:14px 16px;border-left:4px solid var(--tc,var(--accent))}
+  .care-h{font-family:'Kanit',sans-serif;font-weight:600;font-size:16px}
+  .care-sub{font-size:13px;color:var(--muted);margin:2px 0 10px}
+  .care-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+  @media(min-width:700px){.care-grid{grid-template-columns:repeat(6,1fr)}}
+  .care-grid div{background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:8px 6px;text-align:center;display:flex;flex-direction:column;gap:2px}
+  .care-grid span{font-size:12px;color:var(--muted)}
+  .care-grid b{font-family:'Kanit',sans-serif;font-size:16px}
+
+  .ppf-nav{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin:16px 0 4px}
+  @media(min-width:700px){.ppf-nav{grid-template-columns:repeat(4,1fr)}}
+  .ppf-nav button{display:flex;align-items:center;gap:8px;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:10px 12px;font-family:'Kanit',sans-serif;font-size:14.5px;cursor:pointer;color:var(--text);min-height:46px;text-align:left}
+  .ppf-nav b{flex:0 0 auto;width:24px;height:24px;border-radius:50%;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px}
+  .ppf-areas{display:grid;gap:12px}
+  .ppf-area{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:16px}
+  .ppf-area .pa-t{font-family:'Kanit',sans-serif;font-weight:600;font-size:17px}
+  .ppf-area .pa-t small{font-family:'IBM Plex Sans Thai',sans-serif;font-weight:400;font-size:12px;color:var(--faint);margin-left:6px}
+  .ppf-area p{margin:6px 0 0;color:var(--muted);font-size:14.5px}
+  .ppf-sets{display:grid;gap:8px;margin-top:12px}
+  @media(min-width:700px){.ppf-sets{grid-template-columns:repeat(3,1fr)}}
+  .ps{background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:10px 12px;display:flex;flex-direction:column;gap:2px}
+  .ps b{font-family:'Kanit',sans-serif;font-size:16px;color:var(--accent-strong)}
+  .ps span{font-size:12.5px;color:var(--faint)}
+  .ps em{font-style:normal;font-size:13.5px;color:var(--text)}
+  .ps strong{font-family:'Kanit',sans-serif;font-size:15px;margin-top:4px}
+  .ppf-brand{margin:20px 0 10px;padding:10px 14px;border-left:4px solid var(--accent);background:var(--elevated);border-radius:0 12px 12px 0}
+  .ppf-brand b{font-family:'Kanit',sans-serif;font-size:16px;display:block}
+  .ppf-brand span{font-size:13.5px;color:var(--muted)}
+  .ppf-card{position:relative;background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:16px 16px 14px 20px;margin-bottom:12px;overflow:hidden;box-shadow:0 1px 2px rgba(20,22,26,.05),0 6px 18px rgba(20,22,26,.05)}
+  .ppf-card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:5px;background:var(--pc)}
+  .pc-top{display:flex;gap:12px;align-items:center}
+  .pc-no{flex:0 0 auto;width:34px;height:34px;border-radius:50%;background:var(--pc,var(--accent));color:#fff;display:flex;align-items:center;justify-content:center;font-family:'Kanit',sans-serif;font-weight:600;font-size:14px}
+  .pc-name{font-family:'Kanit',sans-serif;font-weight:600;font-size:17px;line-height:1.25}
+  .pc-role{font-size:12.5px;color:var(--muted);margin-top:2px}
+  .pc-line{margin:10px 0 8px;font-size:15px}
+  .pc-price{display:flex;align-items:baseline;gap:8px}
+  .pc-price span{font-size:12.5px;color:var(--faint)}
+  .pc-price b{font-family:'Kanit',sans-serif;font-size:24px}
+  .pc-spec{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0}
+  .pc-spec span{font-size:12.5px;color:var(--muted);background:var(--elevated);border:1px solid var(--border);border-radius:8px;padding:4px 9px}
+  .pc-warr{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  .pc-warr div{background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:8px 10px;display:flex;flex-direction:column}
+  .pc-warr small{font-size:12px;color:var(--muted)} .pc-warr b{font-family:'Kanit',sans-serif;font-size:17px}
+  .pc-fit{margin-top:10px;font-size:14px;color:var(--muted)} .pc-fit b{color:var(--text)}
+  .ppf-card details{margin-top:10px;border-top:1px solid var(--border);padding-top:10px}
+  .ppf-card summary{list-style:none;cursor:pointer;font-family:'Kanit',sans-serif;font-size:14px;color:var(--accent-strong)}
+  .ppf-card summary::-webkit-details-marker{display:none} .ppf-card summary::before{content:"＋ "} .ppf-card details[open] summary::before{content:"－ "}
+  .ppf-card .det{font-size:14px;color:var(--muted);padding-top:8px}
+  .ppf-card .det p{margin:0 0 6px}
+  .ppf-matte{display:grid;gap:10px}
+  @media(min-width:700px){.ppf-matte{grid-template-columns:repeat(2,1fr)}}
+  .pm{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:14px 16px;display:flex;flex-direction:column;gap:3px}
+  .pm b{font-family:'Kanit',sans-serif;font-size:16px} .pm span{font-size:13px;color:var(--muted)} .pm strong{font-family:'Kanit',sans-serif;font-size:17px;margin-top:4px}
+  .ppf-tbl{overflow-x:auto;border:1px solid var(--border);border-radius:var(--r);background:var(--surface);margin-top:12px}
+  .ppf-tbl table{width:100%;min-width:520px;border-collapse:collapse;font-size:13px}
+  .ppf-tbl th{background:var(--elevated);color:var(--muted);font-family:'Kanit',sans-serif;font-weight:600;text-align:left;padding:10px 10px;font-size:12.5px}
+  .ppf-tbl td{padding:10px;border-top:1px solid var(--border);vertical-align:top}
+  .ppf-tbl td:first-child{font-family:'Kanit',sans-serif;font-weight:600;white-space:nowrap}
+  .ppf-tbl .dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px}
+  .ppf-note{margin-top:12px;background:var(--signal-soft);border:1px solid rgba(217,113,63,.3);border-radius:12px;padding:12px 14px;font-size:14px;line-height:1.6}
+  .ppf-hys{display:grid;gap:12px;margin-top:14px}
+  @media(min-width:700px){.ppf-hys{grid-template-columns:repeat(2,1fr)}}
+  .ppf-hy{position:relative;background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:14px 16px 14px 20px;overflow:hidden}
+  .ppf-hy::before{content:"";position:absolute;left:0;top:0;bottom:0;width:5px;background:var(--pc)}
+  .hy-top{display:flex;gap:12px;align-items:center}
+  .ppf-hy p{margin:8px 0 6px;font-size:14px;color:var(--muted)}
+  .hy-set{font-size:13.5px;background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:6px 10px;margin-bottom:8px}
 </style>
 </head>
 <body>
@@ -779,7 +847,7 @@ function buildHomeReviews(){
 }
 function renderHome(){
   const cards = PROGRAM_ORDER.map(s=>{const p=PROGRAMS[s];
-    if(s==='ceramic-coating'){
+    if(s==='ceramic-coating'||s==='ppf'){
       return `<a class="card reveal" href="#/program/${s}">
       <div class="prog-ic">${p.icon}</div><h3>${p.name}</h3><div class="sub">${p.tag}</div>
       <span class="go">ดูโปรแกรม →</span></a>`;
@@ -901,7 +969,7 @@ function renderCoating(){
     <span class="eyebrow reveal">เลือกไซส์รถเพื่อดูราคาจริง</span>
     <div class="size-wrap reveal" id="sizeWrap"></div>
     <div id="matrix"></div>
-    <div class="size-note">* ราคาตามไซส์รถและระยะรับประกัน · Recoat/Treatment คือค่าดูแล/เคลือบซ้ำต่อเนื่อง · ยืนยันไซส์รุ่นรถกับแอดมินอีกครั้ง</div>
+    <div class="size-note">* ราคาตามไซส์รถและระยะรับประกัน · ยืนยันไซส์รุ่นรถกับแอดมินอีกครั้ง</div>
   </div></section>
 
   <section style="padding-top:10px"><div class="wrap">
@@ -946,16 +1014,15 @@ function drawSizeSelector(){
 function setCoatSize(s){ coatSize=s; drawSizeSelector(); drawMatrix(); drawTiers(); }
 function drawMatrix(){
   const el = document.getElementById('matrix'); if(!el) return;
-  const head = `<div class="mrow mh"><div>โปรแกรม (ไซส์ ${coatSize})</div><div>ประกัน 1 ปี</div><div>3 ปี</div><div>5 ปี</div><div>ดูแลต่อ</div></div>`;
+  const head = `<div class="mrow mh"><div>โปรแกรม (ไซส์ ${coatSize})</div><div>ประกัน 1 ปี</div><div>3 ปี</div><div>5 ปี</div></div>`;
   const rows = COATING.order.map(id=>{
     const t=COATING.tiers[id];
     const p1=t.price["1"]?fmt(t.price["1"][coatSize]):'–';
     const p3=t.price["3"]?fmt(t.price["3"][coatSize]):'–';
     const p5=t.price["5"]?fmt(t.price["5"][coatSize]):'–';
-    const care=t.care?fmt(t.care[coatSize]):'–';
     const cell=(v)=>v==='–'?`<div class="na">–</div>`:`<div class="pr">${v}</div>`;
     return `<div class="mrow"><div><span class="tdot" style="background:${t.hex}"></span>${t.name}</div>
-      ${cell(p1)}${cell(p3)}${cell(p5)}<div class="pr" style="color:var(--muted);font-weight:400">${care}</div></div>`;
+      ${cell(p1)}${cell(p3)}${cell(p5)}</div>`;
   }).join('');
   el.innerHTML = `<div class="matrix reveal">${head}${rows}</div>`;
 }
@@ -977,7 +1044,7 @@ function tierCard(id){
       <div class="price-line"><span class="lbl">เริ่มต้น (ไซส์ ${coatSize})</span>
         <span class="val">${startPrice} <span class="b">บาท</span></span></div>
       <div class="warr-chips"><b>ประกัน:</b>${yearsChips}
-        <span style="border:none;color:var(--faint)">ดูแลต่อ ${fmt(t.care[coatSize])}</span></div>
+</div>
       ${promo}
       <details><summary>ดูรายละเอียด & สเปกน้ำยา</summary>
         <div class="det">
@@ -1313,12 +1380,13 @@ function renderTier(id){
   const article=(TIER_ARTICLES[id]||[t.tech]).map(p=>'<p>'+p+'</p>').join('');
   const yrs=t.years;
   const lo=t.price[yrs[0]]['S'], hi=t.price[yrs[yrs.length-1]]['MPV/VAN'];
-  var head='<div class="mrow mh"><div>ไซส์</div>'+yrs.map(y=>'<div>'+y+' ปี</div>').join('')+'<div>ดูแลต่อ</div></div>';
+  var head='<div class="mrow mh"><div>ไซส์</div>'+yrs.map(y=>'<div>'+y+' ปี</div>').join('')+'</div>';
   var rows=SIZES.map(function(s){
     var cells=yrs.map(function(y){return '<div class="pr">'+fmt(t.price[y][s])+'</div>';}).join('');
-    return '<div class="mrow"><div>'+s+'</div>'+cells+'<div style="color:var(--muted)">'+fmt(t.care[s])+'</div></div>';
+    return '<div class="mrow"><div>'+s+'</div>'+cells+'</div>';
   }).join('');
-  var priceTable='<div class="matrix tier-matrix" style="--n:'+(yrs.length+1)+'">'+head+rows+'</div>';
+  var careBlock='<div class="care-box reveal"><div class="care-h">ค่าดูแลต่อ ('+t.careLabel+') ทุก 6 เดือน</div><div class="care-sub">ค่าดูแล/เคลือบซ้ำต่อเนื่อง ราคาตามไซส์รถ</div><div class="care-grid">'+SIZES.map(function(z){return '<div><span>'+z+'</span><b>'+fmt(t.care[z])+'</b></div>';}).join('')+'</div></div>';
+  var priceTable='<div class="matrix tier-matrix" style="--n:'+yrs.length+'">'+head+rows+'</div>';
   var cc=(TIER_CONCERNS[id]||[]).map(function(cs){var c=CONCERNS[cs];
     return '<a class="rel" href="#/concern/'+cs+'"><div class="t"><b>'+c.name+'</b> — <span class="muted">'+c.short+'</span></div><span class="arw">→</span></a>';}).join('');
   var rv=(TIER_REVIEWS[id]||[]);
@@ -1363,14 +1431,15 @@ function renderTier(id){
     <h2 class="sec-title reveal" style="font-size:22px">เริ่มต้น ${fmt(lo)} – ${fmt(hi)} บาท</h2>
     <p class="muted reveal" style="margin-bottom:6px">ราคาขึ้นกับไซส์รถและระยะประกันที่เลือก</p>
     ${priceTable}
+    ${careBlock}
     ${promoHTML}
     <div style="margin-top:14px"><a class="btn btn-ghost" href="#/compare">เทียบกับระดับอื่น</a></div>
   </div></section>
 
   <section style="padding-top:6px"><div class="wrap">
     <span class="eyebrow reveal">รีวิว / ผลงานจริง</span>
-    <h2 class="sec-title reveal" style="font-size:22px">คลิปรีวิวจาก TikTok</h2>
-    ${reviewsHTML}
+    <h2 class="sec-title reveal" style="font-size:22px">${TIER_CLIPS[id]?'คลิปรีวิวลูกค้า '+t.name:'คลิปรีวิวจาก TikTok'}</h2>
+    ${TIER_CLIPS[id]?tierClipsHTML(id):reviewsHTML}
   </div></section>
 
   <section style="padding-top:6px"><div class="wrap">
@@ -1400,6 +1469,7 @@ function renderTier(id){
 
 function renderPPF(){
   const p=PROGRAMS['ppf'];
+  const _pp=ppfSections().split('<!--SPLIT-->'); const ppfNav=_pp[0]; const ppfBody=_pp[1];
   const article=[
     "ฟิล์มใสกันรอย (PPF) คือฟิล์มใสที่ปิดทับผิวสีจริง ทำหน้าที่เป็นเกราะรับสะเก็ดหินและรอยขีดข่วนในชีวิตประจำวันแทนเนื้อสี จุดเด่นคือกันสะเก็ดหินได้เกือบ 100% ในบริเวณที่ติดตั้ง และฟิล์มหลายชนิดยังมีคุณสมบัติฟื้นฟูรอยตื้น ๆ ได้ในตัว",
     "แต่จุดที่ควรเข้าใจก่อนตัดสินใจคือ สะเก็ดหินส่วนใหญ่มาจากล้อของรถคันหน้าที่ตะกุยขึ้นมา จุดเสี่ยงจริง ๆ จึงกระจุกอยู่ที่กันชนหน้า กระจัง ไฟหน้า และฝากระโปรง (บางรุ่นแก้มหน้าป่องออกมา เช่น Tesla, Ora หรือ Porsche บางรุ่น) การติดฟิล์มเฉพาะแนวปะทะจึงมักคุ้มค่ากว่าการติดรอบคันสำหรับคนส่วนใหญ่",
@@ -1421,11 +1491,17 @@ function renderPPF(){
   app.innerHTML=`
   <section style="padding-top:22px"><div class="wrap">
     <a class="back" href="#/home">← หน้าแรก</a>
-    <span class="pill">บริการในร้าน</span>
-    <h1 style="margin-top:10px">${p.name}</h1>
-    <div class="tsub" style="font-size:14px;color:var(--muted);margin-top:2px">${p.specs}</div>
-    <div class="video reveal" style="margin-top:14px"><div class="play">▶</div><div class="vlabel ph">วิดีโอ PPF — รอไฟล์จากทีม</div></div>
+    <span class="pill">ฟิล์มใสกันรอยรถยนต์ PPF</span>
+    <h1 style="margin-top:10px">เลือกฟิล์มให้ตรงกับตัวตนของรถคุณ</h1>
+    <div class="spectrum-bar" style="max-width:180px;margin:12px 0"></div>
+    <div class="reveal" style="max-width:62ch">
+      <p style="font-size:16.5px"><b style="font-family:Kanit">2 แบรนด์ 5 คาแรคเตอร์</b> เพราะรถแต่ละคันมีคาแรคเตอร์ต่างกัน การปกป้องจึงไม่จำเป็นต้องเหมือนกัน</p>
+      <p class="muted" style="margin-top:8px">รถสวยไม่ใช่แค่วันที่รับรถ แต่ต้องสวยและดูแลง่ายในระยะยาว ฟิล์มใสกันรอย (PPF) คือชั้นฟิล์มใสที่ติดบนตัวถัง ช่วยลดโอกาสเกิดความเสียหายต่อชั้นสีจากสะเก็ดหิน รอยขีดข่วนระหว่างใช้งาน คราบมูลนก และมลภาวะ</p>
+    </div>
+    ${ppfNav}
   </div></section>
+
+  ${ppfBody}
 
   <section style="padding-top:8px"><div class="wrap">
     <span class="eyebrow reveal">รู้จักฟิล์มกันรอย</span>
@@ -1460,12 +1536,7 @@ function renderPPF(){
     <div class="rel-list reveal">${cc}</div>
   </div></section>
 
-  <section style="padding-top:6px"><div class="wrap">
-    <span class="eyebrow reveal">แพ็กเกจ และราคา</span>
-    <h2 class="sec-title reveal" style="font-size:22px">รูปแบบการติดตั้ง</h2>
-    <div class="card reveal"><ul style="margin:0 0 0 18px;line-height:2">${packages}</ul>
-      <div class="ph" style="margin-top:8px">* ${p.specs} · ราคาต่อแพ็กเกจ x ไซส์รถ และเงื่อนไขรับประกัน รอข้อมูลจากทีม</div></div>
-  </div></section>
+
 
   <section style="padding-top:6px"><div class="wrap">
     <span class="eyebrow reveal">รีวิว / ผลงานจริง</span>
@@ -1794,6 +1865,108 @@ function ccClose(key){
   el.classList.remove('open');
   var b=el.querySelector('.cc-player');if(b)b.remove();
   var x=el.querySelector('.cc-x');if(x)x.remove();
+}
+
+/* ===== คลิปรีวิวของแต่ละโปรแกรมเคลือบ (YouTube Shorts) ===== */
+const TIER_CLIPS={
+  "nano-quartz":[
+    {id:"VvRCLyY323s",t:"โปรแกรม Nano Quartz รีวิวโดยผู้ใช้ 2 ปี"}],
+  "graphene-plus":[
+    {id:"ohobwXtW3mU",t:"Yaris คันนี้… เคลือบ Graphene Plus มา 2 ปี"},
+    {id:"Hc0cK0IcFG0",t:"เคลมชิ้นงานเคลือบไม่จำกัดจำนวนจริง Graphene Plus สองวัน สองเคส.."}],
+  "graphene-highgloss":[
+    {id:"1da4h_mLipk",t:"3 คันกับโปรแกรม Graphene HighGloss"},
+    {id:"Z5zaHhvfkQA",t:"5 ปีผ่านไป ฟิล์มเปลี่ยน แต่ความเงาไม่เปลี่ยน"}],
+  "resin":[
+    {id:"eUTVkPbIlFY",t:"เจ้าของ S350d ยืนยันเอง หลังเข้ารับบริการเซอร์วิสครบ 1 ปี"},
+    {id:"bt2oYpM13_c",t:"Tesla เลือกทำรอบเดียวจบ! ผสานการปกป้องขั้นสุด"},
+    {id:"EgS34oOtjfM",t:"เคลือบมาแล้วเกิน 20 คัน ! ทำไมถึงมาเคลือบกับร้านเราเยอะจัง ?"}]
+};
+function tierClipsHTML(id){
+  var list=TIER_CLIPS[id]; if(!list) return '';
+  return '<p class="muted reveal" style="font-size:14px;margin-bottom:12px">แตะที่คลิปเพื่อดู เล่นพร้อมเสียงในหน้านี้</p><div class="cc-list">'+list.map(function(v,i){
+    var k='tier-'+id+'-'+i;
+    return '<div class="cc-item reveal" id="cc-'+k+'" data-id="'+v.id+'" data-wide="0"><button type="button" class="cc-btn" onclick="ccPlay(\''+k+'\')" aria-label="เล่นคลิป: '+v.t+'"><span class="cc-img" style="background-image:url(https://i.ytimg.com/vi/'+v.id+'/hqdefault.jpg)"><span class="cc-play">▶</span></span><span class="cc-t">'+v.t+'</span></button></div>';
+  }).join('')+'</div>';
+}
+
+/* ===== PPF: ข้อมูลโปรแกรมฟิล์มใสกันรอย (2 แบรนด์ 5 คาแรคเตอร์) ===== */
+const PPF_SERIES=[
+  {no:"01",brand:"ARM@Z",name:"BLUE SERIES",role:"THE EVERYDAY PROTECTOR",th:"สายลุย",color:"#2196F3",
+   line:"เริ่มต้นปกป้องรถคันโปรดอย่างคุ้มค่า",mat:"Covestro · TPU",thick:"205",feat:["Hydrophobic","Heat Healing"],life:"2–4 ปี หรือ 50,000 กม.",wf:"2 ปี",wg:"3 ปี",price:"30,000",
+   fit:"รถใช้งานประจำวัน รถใหม่ที่อยากเริ่มปกป้องสี และคนมองหางบคุ้มค่า",
+   more:"ฟิล์ม TPU ที่เน้นความสมดุลระหว่างการปกป้องและความคุ้มค่า ลดความเสี่ยงจากรอยขีดข่วนทั่วไป น้ำเกาะพื้นผิวน้อยลง และฟื้นฟูรอยตื้นบนผิวฟิล์มได้เมื่อได้รับความร้อนอย่างเหมาะสม"},
+  {no:"02",brand:"ARM@Z",name:"PLATINUM SERIES",role:"THE LONG-TERM PROTECTOR",th:"สายอึด ถึก ทน",color:"#78909C",
+   line:"เดินทางได้เต็มที่ มั่นใจในระยะยาว",mat:"BASF · Germany · TPU",thick:"215",feat:["Hydrophobic","Heat Healing"],life:"4–6 ปี หรือ 70,000 กม.",wf:"4 ปี",wg:"4 ปี",price:"45,000",
+   fit:"คนใช้รถหนัก เดินทางต่างจังหวัดบ่อย หรือวางแผนใช้รถคันเดิมต่อเนื่องหลายปี",
+   more:"ใช้ TPU จาก BASF ประเทศเยอรมนี ความหนา 215 ไมครอน เพิ่มชั้นปกป้องบนพื้นผิวสี ดูแลง่ายขึ้นและรองรับการใช้งานระยะยาวมากขึ้น"},
+  {no:"03",brand:"ARM@Z",name:"DOUBLE SHINE SERIES",role:"THE GLOSS LOVER",th:"สายสวย เงา ทน",color:"#FF9800",
+   line:"ไม่ใช่แค่ปกป้อง แต่รักษาความเงางามด้วย",mat:"Lubrizol · USA · TPU",thick:"215",feat:["Oleophobic","Instant Healing"],life:"4–6 ปี หรือ 70,000 กม.",wf:"4 ปี",wg:"5 ปี",price:"55,000",
+   fit:"คนรักความเงางาม ดูแลรถเป็นประจำ และอยากรักษาความสวยของสีในระยะยาว",
+   more:"เน้นทั้งการปกป้องและความสวยของพื้นผิว Oleophobic ช่วยลดการเกาะติดของคราบมัน และ Instant Healing ช่วยฟื้นฟูรอยตื้นบนผิวฟิล์มตามสภาวะที่เหมาะสม"},
+  {no:"04",brand:"APF",name:"LUXURY SERIES",role:"THE REFINED PROTECTOR",th:"สายเรียบ หรู",color:"#B8891E",
+   line:"ความหรูอยู่ในรายละเอียดที่ได้รับการดูแล",mat:"UTL · USA · TPU",thick:"215",feat:["Oleophobic","Instant Healing"],life:"4–7 ปี หรือ 70,000 กม.",wf:"4 ปี",wg:"7 ปี",price:"72,000",
+   fit:"เจ้าของรถที่ต้องการฟิล์มระดับพรีเมียม ใส่ใจความสวยและการดูแลสีอย่างต่อเนื่อง",
+   more:"ฟิล์ม TPU จาก UTL ประเทศสหรัฐอเมริกา โดดเด่นด้วยการรับประกันความเงายาวนานสูงสุด 7 ปี ตามเงื่อนไขที่กำหนด"},
+  {no:"05",brand:"APF",name:"DIAMOND SERIES",role:"THE ULTIMATE PROTECTOR",th:"สายเหนือระดับ",color:"#7B1FA2",
+   line:"สำหรับรถคันโปรดที่มีความหมายมากกว่าการเดินทาง",mat:"UTL · USA · TPU",thick:"230",feat:["Oleophobic","Instant Healing"],life:"5–8 ปี หรือ 80,000 กม.",wf:"5 ปี",wg:"7 ปี",price:"106,250",
+   fit:"คนที่มองหาฟิล์มระดับสูงสุด ตั้งใจเก็บรถคันโปรดไว้ระยะยาว หรืออยากได้ความหนาและระยะรับประกันที่มากขึ้น",
+   more:"โปรแกรมฟิล์มใสกันรอยระดับสูงสุดในกลุ่มนี้ ความหนา 230 ไมครอน ระยะรับประกันฟิล์ม 5 ปี และรับประกันความเงา 7 ปี ตามเงื่อนไขโปรแกรม"}
+];
+const PPF_MATTE=[
+  {name:"MATTE SERIES",mat:"Japan · TPH",thick:"190",life:"2–4 ปี",price:"30,000"},
+  {name:"MATTE PLUS SERIES",mat:"Lubrizol · USA · TPU",thick:"200",life:"3–5 ปี",price:"45,000"}
+];
+const PPF_HYBRID=[
+  {no:"01",name:"NANO QUARTZ",tag:"Everyday Easy Care · ดูแลง่าย คุ้มค่าทุกวัน",desc:"เริ่มดูแลสีรถควบคู่กับการปกป้องแนวปะทะ เน้น Hydrophobic ให้ทำความสะอาดสะดวกขึ้น",set:"เลือกได้ทั้ง Set A และ Set B",price:"9,900",color:"#4CAF50"},
+  {no:"02",name:"GRAPHENE PLUS",tag:"Everyday Gloss · เพิ่มความสวยให้ทุกการเดินทาง",desc:"เน้นความสวยและการดูแลพื้นผิว พร้อมบริการ Recoat ตามเงื่อนไขโปรแกรม",set:"จับคู่กับฟิล์ม BLUE SERIES Set B",price:"18,900",color:"#FF9800"},
+  {no:"03",name:"GRAPHENE HIGHGLOSS",tag:"Gloss Enthusiast · สำหรับคนรักความเงาเป็นพิเศษ",desc:"เตรียมผิวแบบ Mirror Finish และ Oleophobic ลดการเกาะติดของคราบมัน พร้อม Recoat ตามเงื่อนไข",set:"ปกป้องจุดเสี่ยงพร้อมความเงางามของสีรถ",price:"22,900",color:"#F44336"},
+  {no:"04",name:"RESIN PRIME & PROUD",tag:"Premium Surface Care · ยกระดับการดูแลสีรถ",desc:"เตรียมผิวแบบ Mirror Finish และเทคโนโลยีดูแลพื้นผิว พร้อมบริการ Recoat ตามเงื่อนไข",set:"จับคู่กับฟิล์ม BLUE SERIES Set B",price:"27,900",color:"#2196F3"}
+];
+function ppfScroll(id){var el=document.getElementById(id);if(!el)return;var y=el.getBoundingClientRect().top+window.pageYOffset-70;window.scrollTo({top:y,behavior:'smooth'});}
+function ppfSections(){
+  var nav='<div class="ppf-nav reveal"><button type="button" onclick="ppfScroll(\'ppfArea\')"><b>1</b>เลือกพื้นที่</button><button type="button" onclick="ppfScroll(\'ppfSeries\')"><b>2</b>เลือกฟิล์ม</button><button type="button" onclick="ppfScroll(\'ppfCmp\')"><b>3</b>เทียบ 5 โปรแกรม</button><button type="button" onclick="ppfScroll(\'ppfHybrid\')"><b>4</b>Hybrid+</button></div>';
+  var area='<section id="ppfArea" style="padding-top:20px"><div class="wrap"><span class="eyebrow reveal">ขั้นที่ 1</span><h2 class="sec-title reveal" style="font-size:22px">เลือกพื้นที่ที่จะปกป้อง</h2>'
+   +'<p class="muted reveal" style="max-width:60ch;margin-bottom:12px">ไม่จำเป็นต้องติดฟิล์มรอบคันเสมอไป เพราะแต่ละส่วนของรถมีความเสี่ยงต่อรอยไม่เท่ากัน</p>'
+   +'<div class="ppf-areas">'
+   +'<div class="ppf-area reveal"><div class="pa-t">🚗 รอบคัน <small>Full Body</small></div><p>เพิ่มการปกป้องบนพื้นผิวสีรถโดยรวม ทั้งด้านหน้า ด้านข้าง และด้านหลัง ลดโอกาสเกิดร่องรอยจากการใช้งานทุกวัน</p></div>'
+   +'<div class="ppf-area reveal"><div class="pa-t">🛡️ เฉพาะด้านหน้า <small>Front-End</small></div><p>เน้นจุดที่รับสะเก็ดหินและเศษวัสดุจากถนนมากที่สุด มี 3 ชุดให้เลือก</p>'
+   +'<div class="ppf-sets">'
+   +'<div class="ps"><b>SET A</b><span>Essential</span><em>ไฟหน้า · กันชนหน้า</em><strong>เริ่ม 9,900 บาท</strong></div>'
+   +'<div class="ps"><b>SET B</b><span>Extended</span><em>ไฟหน้า · กันชนหน้า · ฝากระโปรงหน้า</em><strong>เริ่ม 13,900 บาท</strong></div>'
+   +'<div class="ps"><b>SET C</b><span>Full Front-End</span><em>พื้นที่ส่วนหน้ารถถึงช่วงครึ่งหัวท่อนหน้า ตามขอบเขตชุดติดตั้ง</em><strong>สอบถามราคา</strong></div>'
+   +'</div><div class="ph" style="margin-top:8px">* ราคา Set A/B เป็นแพ็กเกจฟิล์ม ARM@Z BLUE SERIES · เลือกซีรีส์ฟิล์มให้เหมาะกับงบได้</div></div>'
+   +'</div></div></section>';
+  function card(x){
+    return '<div class="ppf-card reveal" style="--pc:'+x.color+'"><div class="pc-top"><span class="pc-no">'+x.no+'</span><div><div class="pc-name">'+x.brand+' '+x.name+'</div><div class="pc-role">'+x.role+' · '+x.th+'</div></div></div>'
+     +'<div class="pc-line">'+x.line+'</div>'
+     +'<div class="pc-price"><span>ราคาเริ่มต้น</span><b>'+x.price+' บาท</b></div>'
+     +'<div class="pc-spec"><span>ความหนา '+x.thick+' µm</span><span>'+x.feat.join(' · ')+'</span><span>อายุใช้งาน '+x.life+'</span></div>'
+     +'<div class="pc-warr"><div><small>รับประกันฟิล์ม</small><b>'+x.wf+'</b></div><div><small>รับประกันความเงา</small><b>'+x.wg+'</b></div></div>'
+     +'<div class="pc-fit"><b>เหมาะกับ:</b> '+x.fit+'</div>'
+     +'<details><summary>รายละเอียดเพิ่มเติม</summary><div class="det"><p>'+x.more+'</p><p>วัสดุ '+x.mat+'</p></div></details></div>';
+  }
+  var arm=PPF_SERIES.filter(function(x){return x.brand==='ARM@Z';}).map(card).join('');
+  var apf=PPF_SERIES.filter(function(x){return x.brand==='APF';}).map(card).join('');
+  var matte=PPF_MATTE.map(function(m){return '<div class="pm"><b>'+m.name+'</b><span>วัสดุ '+m.mat+' · '+m.thick+' µm · Hydrophobic · Heat Healing</span><span>อายุใช้งานประมาณ '+m.life+'</span><strong>เริ่ม '+m.price+' บาท</strong></div>';}).join('');
+  var series='<section id="ppfSeries" style="padding-top:20px"><div class="wrap"><span class="eyebrow reveal">ขั้นที่ 2</span><h2 class="sec-title reveal" style="font-size:22px">เลือกฟิล์มตามคาแรคเตอร์ของรถคุณ</h2>'
+   +'<p class="muted reveal" style="max-width:60ch;margin-bottom:6px">2 แบรนด์ 5 คาแรคเตอร์ เพราะรถแต่ละคันไม่เหมือนกัน การปกป้องจึงไม่จำเป็นต้องเหมือนกัน</p>'
+   +'<div class="ppf-brand reveal"><b>ARM@Z</b><span>Everyday Protection, Your Everyday Style · คุ้มค่าตั้งแต่ใช้ทุกวัน ไปจนถึงเพิ่มความเงางาม · 3 คาแรคเตอร์</span></div>'+arm
+   +'<div class="ppf-brand reveal"><b>APF — ARMOR PAINT PROTECTIVE FILM</b><span>Premium Protection, Exceptional Finish · ระดับพรีเมียม ใส่ใจคุณภาพวัสดุและความงามระยะยาว · 2 คาแรคเตอร์</span></div>'+apf
+   +'<div class="ppf-brand reveal"><b>THE BOLD CHARACTER · สายเท่ ด้านอย่างมีสไตล์</b><span>ARM@Z MATTE &amp; MATTE PLUS · สำหรับคนที่ชอบความเรียบเท่และผิวสัมผัสแบบด้าน</span></div><div class="ppf-matte reveal">'+matte+'</div>'
+   +'</div></section>';
+  var rows=PPF_SERIES.map(function(x){return '<tr><td><span class="dot" style="background:'+x.color+'"></span>'+x.brand+' '+x.name.replace(' SERIES','')+'</td><td>'+x.thick+' µm</td><td>'+x.feat.join(' / ')+'</td><td>'+x.life+'</td></tr>';}).join('');
+  var cmp='<section id="ppfCmp" style="padding-top:20px"><div class="wrap"><span class="eyebrow reveal">ขั้นที่ 3</span><h2 class="sec-title reveal" style="font-size:22px">เปรียบเทียบ 5 โปรแกรมฟิล์มใสกันรอย</h2>'
+   +'<div class="ppf-tbl reveal"><table><thead><tr><th>โปรแกรม</th><th>ความหนา</th><th>คุณสมบัติพื้นผิว</th><th>อายุการใช้งาน</th></tr></thead><tbody>'+rows+'</tbody></table></div>'
+   +'<div class="ph" style="margin-top:8px">* อายุการใช้งานเป็นข้อมูลประมาณการของแต่ละโปรแกรม ไม่ใช่ระยะเวลารับประกันโดยอัตโนมัติ ขึ้นกับสภาพการใช้งาน การบำรุงรักษา และเงื่อนไขของผลิตภัณฑ์</div>'
+   +'<div class="ppf-note reveal">ฟิล์มใสกันรอยช่วยลดความเสี่ยงต่อความเสียหาย แต่ไม่สามารถป้องกันรอยทุกประเภทหรือแรงกระแทกรุนแรงได้ อายุการใช้งาน ที่จอดเป็นประจำ พฤติกรรมการดูแล การเคลียร์ปัญหาบนรถเบื้องต้นทันทีเมื่อเจอ และการรับประกัน ขึ้นอยู่กับข้อกำหนดของแต่ละโปรแกรม</div></div></section>';
+  var hy=PPF_HYBRID.map(function(h){return '<div class="ppf-hy reveal" style="--pc:'+h.color+'"><div class="hy-top"><span class="pc-no">'+h.no+'</span><div><div class="pc-name">'+h.name+'</div><div class="pc-role">'+h.tag+'</div></div></div><p>'+h.desc+'</p><div class="hy-set">'+h.set+'</div><div class="pc-price"><span>ราคาเริ่มต้น</span><b>'+h.price+' บาท</b></div></div>';}).join('');
+  var hybrid='<section id="ppfHybrid" style="padding-top:20px"><div class="wrap"><span class="eyebrow reveal">ทางเลือกคุ้มค่า</span><h2 class="sec-title reveal" style="font-size:22px">HYBRID+ ฟิล์มแนวปะทะ + เคลือบเซรามิก</h2>'
+   +'<div class="reveal" style="max-width:62ch"><p>ไม่จำเป็นต้องติดฟิล์มทั้งคัน ก็เริ่มปกป้องสีรถจากสะเก็ดหินได้ รอยสะเก็ดหินมักเกิดที่ด้านหน้า โดยเฉพาะกันชนหน้า ฝากระโปรง และไฟหน้า</p>'
+   +'<p style="margin-top:8px"><b>ฟิล์มใสกันรอย</b> เน้นปกป้องจุดเสี่ยง ส่วน <b>เคลือบเซรามิก</b> เน้นความสวยและการดูแลพื้นผิว สองอย่างทำหน้าที่ต่างกัน แต่เลือกใช้ร่วมกันได้ ด้วยฟิล์มแนวปะทะ ARM@Z BLUE SERIES จับคู่กับโปรแกรมเคลือบที่เลือกได้ตามงบ</p></div>'
+   +'<div class="ppf-hys">'+hy+'</div>'
+   +'<div class="ph" style="margin-top:10px">* อายุการใช้งานของฟิล์มและระยะเวลารับประกันแพ็กเกจเป็นคนละส่วนกัน แพ็กเกจแสดงรับประกัน 1 ปีตามเงื่อนไขที่กำหนด พื้นที่ติดตั้งและบริการเคลือบเป็นไปตามรายละเอียดของแต่ละชุด</div></div></section>';
+  return nav+'<!--SPLIT-->'+area+series+cmp+hybrid;
 }
 
 function router(){
