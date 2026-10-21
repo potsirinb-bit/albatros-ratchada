@@ -537,6 +537,9 @@
 
   .pc-coat{margin-top:6px;font-size:13.5px;color:var(--text);background:rgba(184,137,30,.10);border:1px solid rgba(184,137,30,.3);border-radius:10px;padding:7px 10px}
   .pc-coat b{font-family:'Kanit',sans-serif} .pc-coat span{color:var(--muted);font-size:12.5px;margin-left:4px}
+
+  .ppf-vid{margin:16px 0 6px;max-width:720px}
+  .ppf-vid-t{font-family:'Kanit',sans-serif;font-weight:500;font-size:15px;margin-bottom:8px}
 </style>
 </head>
 <body>
@@ -1031,7 +1034,7 @@ function drawSizeSelector(){
   el.innerHTML = `<div class="lb">🚗 ไซส์รถของคุณ</div>
     <div class="size-opts">${SIZES.map(s=>`<button class="${s===coatSize?'sel':''}" onclick="setCoatSize('${s}')">${s}<span style="font-size:11px;opacity:.7;font-family:'IBM Plex Sans Thai'"> · ${SIZE_GUIDE[s]}</span></button>`).join('')}</div>`;
 }
-function setCoatSize(s){ coatSize=s; drawSizeSelector(); drawMatrix(); drawTiers(); }
+function setCoatSize(s){ coatSize=s; drawSizeSelector(); drawMatrix(); drawTiers(); revealNow(); }
 function drawMatrix(){
   const el = document.getElementById('matrix'); if(!el) return;
   const head = `<div class="mrow mh"><div>โปรแกรม (ไซส์ ${coatSize})</div><div>ประกัน 1 ปี</div><div>3 ปี</div><div>5 ปี</div></div>`;
@@ -1298,7 +1301,7 @@ function drawTierSize(){
   el.innerHTML = SIZES.map(s=>`<button class="${s===coatSize?'sel':''}" onclick="setSizeTier('${s}')">${s}</button>`).join('');
   drawTierPrice();
 }
-function setSizeTier(s){coatSize=s;drawTierSize();}
+function setSizeTier(s){coatSize=s;drawTierSize();revealNow();}
 function drawTierPrice(){
   var t=COATING.tiers[curTier]; var el=document.getElementById('tierPrice'); if(!el)return;
   var rows=t.years.map(y=>`<div class="tp-row"><span>ประกัน ${y} ปี</span><b>${fmt(t.price[y][coatSize])} บาท</b></div>`).join('');
@@ -1518,6 +1521,7 @@ function renderPPF(){
       <p style="font-size:16.5px"><b style="font-family:Kanit">2 แบรนด์ 5 คาแรคเตอร์</b> เพราะรถแต่ละคันมีคาแรคเตอร์ต่างกัน การปกป้องจึงไม่จำเป็นต้องเหมือนกัน</p>
       <p class="muted" style="margin-top:8px">รถสวยไม่ใช่แค่วันที่รับรถ แต่ต้องสวยและดูแลง่ายในระยะยาว ฟิล์มใสกันรอย (PPF) คือชั้นฟิล์มใสที่ติดบนตัวถัง ช่วยลดโอกาสเกิดความเสียหายต่อชั้นสีจากสะเก็ดหิน รอยขีดข่วนระหว่างใช้งาน คราบมูลนก และมลภาวะ</p>
     </div>
+    <div class="ppf-vid reveal"><div class="ppf-vid-t">▶ คลิปแนะนำ: ฟิล์มใสกันรอยแบบไหนที่เหมาะกับคุณที่สุด (อัปเดตล่าสุดปี 2026)</div><div class="yt-video"><iframe src="https://www.youtube.com/embed/7C9-xkXJnhk" referrerpolicy="strict-origin-when-cross-origin" title="ฟิล์มใสกันรอยแบบไหนที่เหมาะกับคุณที่สุด" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div><a class="yt-link" href="https://www.youtube.com/watch?v=7C9-xkXJnhk" target="_blank" rel="noopener" style="display:block;text-align:center;font-size:13px;color:var(--muted);margin:8px 0">▶ เปิดดูบน YouTube</a></div>
     ${ppfNav}
   </div></section>
 
@@ -1684,12 +1688,12 @@ function drawCmpControls(){
     return `<button class="opt prog ${on?'sel':''}" style="--oc:${t.hex}" onclick="cmpProg('${id}')">${t.name}</button>`;}).join('');
   drawCmpTable();
 }
-function cmpSize(s){ cmp.size = cmp.size===s?null:s; drawCmpControls(); }
+function cmpSize(s){ cmp.size = cmp.size===s?null:s; drawCmpControls(); revealNow(); }
 function cmpProg(id){
   const i=cmp.progs.indexOf(id);
   if(i>-1) cmp.progs.splice(i,1);
   else { if(cmp.progs.length>=2) cmp.progs.shift(); cmp.progs.push(id); }
-  drawCmpControls();
+  drawCmpControls(); revealNow();
 }
 function priceCell(t){
   if(!cmp.size) return `<span class="muted">เลือกไซส์ก่อน</span>`;
@@ -1747,6 +1751,8 @@ function closeSheet(){document.getElementById('scrim').classList.remove('open');
 const SELF=new Set();
 function toggleSelf(el,slug){el.classList.toggle('on');if(el.classList.contains('on')){SELF.add(slug);toast('บันทึกแล้ว: ตรงกับรถของคุณ ✓');}else SELF.delete(slug);}
 let tT;function toast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');clearTimeout(tT);tT=setTimeout(()=>t.classList.remove('show'),2600);}
+/* เนื้อหาที่วาดใหม่หลังเปลี่ยนไซส์/ตัวเลือก ให้แสดงทันที (ไม่รอเอฟเฟกต์เลื่อนถึง) */
+function revealNow(){document.querySelectorAll('.reveal:not(.in)').forEach(function(el){el.classList.add('in');});}
 function afterRender(){
   const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:.1});
   document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
