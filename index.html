@@ -1433,6 +1433,11 @@ function renderTier(id){
   var promoHTML = t.promo ? '<div class="promo" style="margin-top:14px"><b>รับสิทธิ์พิเศษ:</b> '+t.promo+'<br><span style="opacity:.9">เลือกรับ <b>ฟิล์มกันรอย Blue Series</b> หรือ <b>พ่นกันสนิม</b> อย่างใดอย่างหนึ่ง และใช้เป็น<b>สิทธิ์แลกซื้อ</b>เพื่ออัปเกรดได้ทั้งเกรดฟิล์ม ขอบเขตการติดตั้ง หรือแบบกันสนิม โดยคิดส่วนลด/ส่วนเพิ่มตามหน้างาน</span></div>' : '';
   var allChips = Object.keys(CONCERNS).map(function(cs){var c=CONCERNS[cs];
     return '<a class="chip" href="#/concern/'+cs+'"><span class="dot">●</span>'+c.name+'</a>';}).join('');
+  var _ci=COATING.order.indexOf(id);
+  var _nextId=COATING.order[_ci+1];
+  var nextBtn=_nextId
+    ? '<a class="btn btn-primary" href="#/coating/'+_nextId+'">โปรแกรมต่อไป: '+COATING.tiers[_nextId].name+' →</a>'
+    : '<a class="btn btn-primary" href="#/program/ppf">โปรแกรมต่อไป: ฟิล์มใสกันรอย (PPF) →</a>';
   var otherTiers = COATING.order.filter(function(x){return x!==id;}).map(function(x){var o=COATING.tiers[x];
     return '<a class="chip" href="#/coating/'+x+'">'+o.name+'</a>';}).join('');
 
@@ -1470,7 +1475,7 @@ function renderTier(id){
     ${priceTable}
     ${careBlock}
     ${promoHTML}
-    <div style="margin-top:14px"><a class="btn btn-ghost" href="#/compare">เทียบกับระดับอื่น</a></div>
+    <div style="margin-top:14px">${nextBtn}</div>
   </div></section>
 
   <section style="padding-top:6px"><div class="wrap">
