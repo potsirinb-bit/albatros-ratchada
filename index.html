@@ -2100,6 +2100,7 @@ document.addEventListener('click',function(e){
   var a=e.target.closest&&e.target.closest('.dock-body a');
   if(a&&window.innerWidth<=1180){var d=a.closest('.dock');if(d)d.classList.add('collapsed');}
 });
+if(true){["dockL","dockR"].forEach(function(i){var d=document.getElementById(i);if(d)d.classList.add("collapsed");});} /* แผงลอยพับเก็บเป็นหัวข้อไว้ก่อน กดแล้วค่อยเปิด */
 </script>
 </body>
 </html>
